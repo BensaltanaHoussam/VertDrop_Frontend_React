@@ -1,8 +1,9 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '../App';
+import { Login } from '../features/auth/components/Login';
+import { ProtectedRoute } from '../shared/layouts/ProtectedRoute';
 
-// Placeholder components for routing
-const Login = () => <div className="p-8">Login Page (Coming Soon)</div>;
+// Placeholder components for routing (will be implemented in later epics)
 const AdminDashboard = () => <div className="p-8">Admin Dashboard (Coming Soon)</div>;
 const ClientDashboard = () => <div className="p-8">Client Dashboard (Coming Soon)</div>;
 const LivreurDashboard = () => <div className="p-8">Livreur Dashboard (Coming Soon)</div>;
@@ -21,16 +22,34 @@ export const router = createBrowserRouter([
                 element: <Login />,
             },
             {
-                path: 'admin',
-                element: <AdminDashboard />,
+                // Protected Admin Routes
+                element: <ProtectedRoute allowedRoles={['ADMIN', 'MANAGER']} />,
+                children: [
+                    {
+                        path: 'admin',
+                        element: <AdminDashboard />,
+                    },
+                ],
             },
             {
-                path: 'client',
-                element: <ClientDashboard />,
+                // Protected Client Routes
+                element: <ProtectedRoute allowedRoles={['CLIENT']} />,
+                children: [
+                    {
+                        path: 'client',
+                        element: <ClientDashboard />,
+                    },
+                ],
             },
             {
-                path: 'livreur',
-                element: <LivreurDashboard />,
+                // Protected Livreur Routes
+                element: <ProtectedRoute allowedRoles={['LIVREUR']} />,
+                children: [
+                    {
+                        path: 'livreur',
+                        element: <LivreurDashboard />,
+                    },
+                ],
             },
         ],
     },
