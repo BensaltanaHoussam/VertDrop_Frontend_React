@@ -12,8 +12,7 @@ export interface DashboardStats {
 
 export const statsService = {
     getDashboardStats: async (): Promise<DashboardStats> => {
-        // In a real app, this would be a single endpoint or multiple combined
-        const response = await api.get<DashboardStats>('/stats/dashboard');
+        const response = await api.get<DashboardStats>('/api/stats/summary');
         return response.data;
     },
 };

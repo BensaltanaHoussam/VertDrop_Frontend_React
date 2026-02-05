@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { ParcelState, Colis } from '../../../shared/types/parcel.types';
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
+import type { ParcelState, Colis } from '../../../shared/types/parcel.types';
 import { parcelService } from '../services/parcel.service';
-import { Page } from '../../../shared/types/api.types';
+import type { Page } from '../../../shared/types/api.types';
 
 const initialState: ParcelState = {
     items: [],
@@ -72,7 +72,7 @@ const parcelSlice = createSlice({
             })
             .addCase(fetchParcels.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload as string;
+                state.error = (action as any).payload as string;
             });
     },
 });

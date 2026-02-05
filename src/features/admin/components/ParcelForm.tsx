@@ -17,7 +17,7 @@ const parcelSchema = z.object({
     villeDestination: z.string().min(2, 'La ville est requise'),
     clientExpediteurId: z.coerce.number().min(1, 'Le client est requis'),
     zoneId: z.coerce.number().min(1, 'La zone est requise'),
-    livreurId: z.coerce.number().optional(),
+    livreurId: z.coerce.number().optional().nullable(),
 });
 
 type ParcelFormValues = z.infer<typeof parcelSchema>;
@@ -37,7 +37,7 @@ export const ParcelForm = () => {
         setValue,
         formState: { errors },
     } = useForm<ParcelFormValues>({
-        resolver: zodResolver(parcelSchema),
+        resolver: zodResolver(parcelSchema) as any,
         defaultValues: {
             statut: 'CREE',
             priorite: 1,

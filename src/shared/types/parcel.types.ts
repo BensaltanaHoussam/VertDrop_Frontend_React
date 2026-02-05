@@ -1,4 +1,4 @@
-import { StatutColis, User } from './api.types';
+import type { StatutColis, User } from './api.types';
 
 export interface Zone {
     id: number;

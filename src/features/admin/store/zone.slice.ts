@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Zone } from '../../../shared/types/parcel.types';
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
+import type { Zone } from '../../../shared/types/parcel.types';
 import { zoneService } from '../services/zone.service';
 
 interface ZoneState {
@@ -56,7 +56,7 @@ const zoneSlice = createSlice({
             })
             .addCase(fetchZones.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload as string;
+                state.error = (action as any).payload as string;
             })
             .addCase(createZone.fulfilled, (state, action: PayloadAction<Zone>) => {
                 state.items.push(action.payload);
