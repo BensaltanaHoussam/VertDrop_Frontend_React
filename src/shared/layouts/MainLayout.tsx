@@ -24,6 +24,7 @@ export const MainLayout = () => {
         { name: 'Mes Colis', href: '/client', icon: Package, roles: ['CLIENT'] },
         { name: 'Utilisateurs', href: '/admin/users', icon: Users, roles: ['ADMIN', 'MANAGER'] },
         { name: 'Zones', href: '/admin/zones', icon: MapPin, roles: ['ADMIN', 'MANAGER'] },
+        { name: 'Analytiques', href: '/admin/stats', icon: LayoutDashboard, roles: ['ADMIN', 'MANAGER'] },
     ];
 
     const filteredNavigation = navigation.filter(item =>
@@ -50,8 +51,8 @@ export const MainLayout = () => {
                                     key={item.name}
                                     to={item.href}
                                     className={`flex items-center px-3 py-3 rounded-xl transition-all duration-200 group ${isActive
-                                            ? 'bg-blue-50 text-blue-600'
-                                            : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
+                                        ? 'bg-blue-50 text-blue-600'
+                                        : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
                                         }`}
                                 >
                                     <item.icon className={`h-5 w-5 ${isActive ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600'}`} />

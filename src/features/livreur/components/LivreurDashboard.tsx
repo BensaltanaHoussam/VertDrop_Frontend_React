@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchParcels, setFilters } from '../store/parcel.slice';
+import { fetchParcels } from '../store/parcel.slice';
 import { useAuth } from '../../auth/hooks/useAuth';
 import { AppDispatch, RootState } from '../../../app/store';
 import {
