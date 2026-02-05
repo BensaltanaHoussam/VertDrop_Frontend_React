@@ -9,10 +9,9 @@ import { LivreurDashboard } from '../features/livreur/components/LivreurDashboar
 
 import { ParcelForm } from '../features/admin/components/ParcelForm';
 import { ParcelDetails } from '../features/admin/components/ParcelDetails';
-
-// Placeholder components for more specific views
-const UserManagement = () => <div className="p-8"><h1 className="text-2xl font-bold">Gestion des Utilisateurs</h1><p className="text-gray-500">Coming soon...</p></div>;
-const ZoneManagement = () => <div className="p-8"><h1 className="text-2xl font-bold">Gestion des Zones</h1><p className="text-gray-500">Coming soon...</p></div>;
+import { UserManagement } from '../features/admin/components/UserManagement';
+import { ZoneManagement } from '../features/admin/components/ZoneManagement';
+import { StatsDashboard } from '../features/admin/components/StatsDashboard';
 
 export const router = createBrowserRouter([
     {
@@ -61,6 +60,10 @@ export const router = createBrowserRouter([
                                     {
                                         path: 'admin/zones',
                                         element: <ZoneManagement />,
+                                    },
+                                    {
+                                        path: 'admin/stats',
+                                        element: <StatsDashboard />,
                                     },
                                 ],
                             },

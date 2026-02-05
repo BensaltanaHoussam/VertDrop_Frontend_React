@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../../app/store';
+import type { AppDispatch, RootState } from '../../../app/store';
 import { fetchClients, fetchLivreurs } from '../../admin/store/user.slice';
 import { parcelService } from '../services/parcel.service';
-import { Package, Save, X, ArrowLeft, Loader2 } from 'lucide-react';
+import { Save, ArrowLeft, Loader2 } from 'lucide-react';
 
 const parcelSchema = z.object({
     description: z.string().min(3, 'La description doit contenir au moins 3 caractères'),
@@ -15,9 +15,9 @@ const parcelSchema = z.object({
     statut: z.string(),
     priorite: z.number().min(1).max(10),
     villeDestination: z.string().min(2, 'La ville est requise'),
-    clientExpediteurId: z.number({ required_error: 'Le client est requis' }),
-    zoneId: z.number({ required_error: 'La zone est requise' }),
-    livreurId: z.number().optional(),
+    clientExpediteurId: z.coerce.number().min(1, 'Le client est requis'),
+    zoneId: z.coerce.number().min(1, 'La zone est requise'),
+    livreurId: z.coerce.number().optional(),
 });
 
 type ParcelFormValues = z.infer<typeof parcelSchema>;
@@ -27,9 +27,9 @@ export const ParcelForm = () => {
     const isEdit = !!id;
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
-    const { clients, livreurs, loading: usersLoading } = useSelector((state: RootState) => state.user);
+    const { clients, livreurs } = useSelector((state: RootState) => state.user);
 
-    const [isSubmitting, setIsSubmitting] = React.useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const {
         register,
@@ -159,7 +159,7 @@ export const ParcelForm = () => {
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-1 uppercase tracking-wider">Client Expéditeur</label>
                             <select
-                                {...register('clientExpediteurId', { valueAsNumber: true })}
+                                {...register('clientExpediteurId')}
                                 className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-blue-500"
                             >
                                 <option value="">Sélectionner un client</option>
@@ -171,7 +171,7 @@ export const ParcelForm = () => {
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-1 uppercase tracking-wider">Zone de distribution</label>
                             <select
-                                {...register('zoneId', { valueAsNumber: true })}
+                                {...register('zoneId')}
                                 className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-blue-500"
                             >
                                 <option value="">Sélectionner une zone</option>
@@ -185,7 +185,7 @@ export const ParcelForm = () => {
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-1 uppercase tracking-wider">Livreur Assigné (Optionnel)</label>
                             <select
-                                {...register('livreurId', { valueAsNumber: true })}
+                                {...register('livreurId')}
                                 className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-blue-500"
                             >
                                 <option value="">Non assigné</option>
