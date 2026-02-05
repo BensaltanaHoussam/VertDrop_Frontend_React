@@ -7,6 +7,9 @@ import { AdminDashboard } from '../features/admin/components/AdminDashboard';
 import { ClientDashboard } from '../features/client/components/ClientDashboard';
 import { LivreurDashboard } from '../features/livreur/components/LivreurDashboard';
 
+import { ParcelForm } from '../features/admin/components/ParcelForm';
+import { ParcelDetails } from '../features/admin/components/ParcelDetails';
+
 // Placeholder components for more specific views
 const UserManagement = () => <div className="p-8"><h1 className="text-2xl font-bold">Gestion des Utilisateurs</h1><p className="text-gray-500">Coming soon...</p></div>;
 const ZoneManagement = () => <div className="p-8"><h1 className="text-2xl font-bold">Gestion des Zones</h1><p className="text-gray-500">Coming soon...</p></div>;
@@ -38,6 +41,18 @@ export const router = createBrowserRouter([
                                     {
                                         path: 'admin',
                                         element: <AdminDashboard />,
+                                    },
+                                    {
+                                        path: 'admin/parcels/new',
+                                        element: <ParcelForm />,
+                                    },
+                                    {
+                                        path: 'admin/parcels/:id',
+                                        element: <ParcelDetails />,
+                                    },
+                                    {
+                                        path: 'admin/parcels/:id/edit',
+                                        element: <ParcelForm />,
                                     },
                                     {
                                         path: 'admin/users',

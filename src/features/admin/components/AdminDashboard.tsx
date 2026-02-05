@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchParcels, setFilters, setPage } from '../store/parcel.slice';
 import { AppDispatch, RootState } from '../../../app/store';
@@ -37,10 +38,10 @@ export const AdminDashboard = () => {
                     <h1 className="text-2xl font-bold text-gray-900">Vue d'ensemble de la logistique</h1>
                     <p className="text-gray-500">Gérez et suivez toutes les livraisons en temps réel.</p>
                 </div>
-                <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-200">
+                <Link to="/admin/parcels/new" className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-200">
                     <Plus className="h-5 w-5 mr-2" />
                     Nouveau Colis
-                </button>
+                </Link>
             </div>
 
             {/* Stats Grid */}
@@ -124,8 +125,8 @@ export const AdminDashboard = () => {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${parcel.statut === 'LIVRE' ? 'bg-green-100 text-green-800' :
-                                            parcel.statut === 'EN_TRANSIT' ? 'bg-yellow-100 text-yellow-800' :
-                                                'bg-blue-100 text-blue-800'
+                                        parcel.statut === 'EN_TRANSIT' ? 'bg-yellow-100 text-yellow-800' :
+                                            'bg-blue-100 text-blue-800'
                                         }`}>
                                         {parcel.statut}
                                     </span>
