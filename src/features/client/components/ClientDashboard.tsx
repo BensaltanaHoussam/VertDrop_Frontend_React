@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchParcels, setFilters } from '../../../features/admin/store/parcel.slice';
-import { useAuth } from '../../auth/hooks/useAuth';
-import { AppDispatch, RootState } from '../../../app/store';
+import { fetchParcels } from '../../../features/admin/store/parcel.slice';
+import type { AppDispatch, RootState } from '../../../app/store';
 import {
     Package,
     Search,
@@ -16,7 +15,6 @@ import {
 
 export const ClientDashboard = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { user } = useAuth();
     const { items, loading } = useSelector((state: RootState) => state.parcel);
 
     useEffect(() => {

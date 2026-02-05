@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { parcelService } from '../services/parcel.service';
-import { Colis } from '../../../shared/types/parcel.types';
+import type { Colis } from '../../../shared/types/parcel.types';
 import {
     Package,
     MapPin,
@@ -10,8 +10,6 @@ import {
     CheckCircle2,
     Clock,
     ShieldCheck,
-    Calendar,
-    Weight,
     User as UserIcon
 } from 'lucide-react';
 
@@ -81,7 +79,7 @@ export const ParcelDetails = () => {
                                     return (
                                         <div key={step.label} className={`flex items-start relative z-10 ${isCompleted ? 'opacity-100' : 'opacity-40'}`}>
                                             <div className={`h-16 w-16 rounded-[1.25rem] flex items-center justify-center transition-all duration-500 shadow-lg ${isCurrent ? 'bg-blue-600 text-white scale-110' :
-                                                    isCompleted ? 'bg-blue-100 text-blue-600' : 'bg-gray-50 text-gray-400'
+                                                isCompleted ? 'bg-blue-100 text-blue-600' : 'bg-gray-50 text-gray-400'
                                                 }`}>
                                                 <step.icon className="h-8 w-8" />
                                             </div>

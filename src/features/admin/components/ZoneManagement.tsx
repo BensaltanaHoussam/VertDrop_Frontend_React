@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchZones, createZone } from '../store/zone.slice';
-import { AppDispatch, RootState } from '../../../app/store';
+import type { AppDispatch, RootState } from '../../../app/store';
 import {
     MapPin,
     Plus,
     Trash2,
-    Edit3,
     MoreHorizontal,
     Navigation,
     Loader2
@@ -14,7 +13,7 @@ import {
 
 export const ZoneManagement = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { items, loading, error } = useSelector((state: RootState) => state.zone);
+    const { items, loading } = useSelector((state: RootState) => state.zone);
     const [isAdding, setIsAdding] = useState(false);
     const [newZoneName, setNewZoneName] = useState('');
 

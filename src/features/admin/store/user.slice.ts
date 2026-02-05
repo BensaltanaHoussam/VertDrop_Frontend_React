@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { UserState } from '../../../shared/types/user.types';
-import { User } from '../../../shared/types/api.types';
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
+import type { UserState } from '../../../shared/types/user.types';
+import type { User } from '../../../shared/types/api.types';
 import { userService } from '../services/user.service';
 
 const initialState: UserState = {
@@ -67,7 +67,7 @@ const userSlice = createSlice({
                 (action) => action.type.endsWith('/rejected'),
                 (state, action) => {
                     state.loading = false;
-                    state.error = action.payload as string;
+                    state.error = (action as any).payload as string;
                 }
             );
     },

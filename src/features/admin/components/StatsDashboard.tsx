@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { statsService, DashboardStats } from '../services/stats.service';
+import { useEffect, useState } from 'react';
+import { statsService, type DashboardStats } from '../services/stats.service';
 import {
     BarChart3,
     PieChart,
     TrendingUp,
     ArrowUpRight,
-    Calendar,
     ArrowDownRight,
     Loader2,
     DollarSign,

@@ -1,4 +1,4 @@
-import { User } from '../../../shared/types/api.types';
+import type { User } from '../../../shared/types/api.types';
 
 export interface LoginCredentials {
     email: string;

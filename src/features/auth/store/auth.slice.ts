@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { AuthState, LoginCredentials, AuthResponse } from '../types/auth.types';
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
+import type { AuthState, LoginCredentials, AuthResponse } from '../types/auth.types';
 import { authService } from '../services/auth.service';
 
 const initialState: AuthState = {
@@ -12,10 +12,12 @@ const initialState: AuthState = {
 
 export const login = createAsyncThunk(
     'auth/login',
-    async (credentials: LoginCredentials, { rejectWithValue }) => {
+    async (credentials: LoginCredentials, { dispatch, rejectWithValue }) => {
         try {
             const response = await authService.login(credentials);
             localStorage.setItem('vertdrop_token', response.token);
+            // Fetch profile after successful login
+            await dispatch(fetchProfile());
             return response;
         } catch (error: any) {
             return rejectWithValue(error.response?.data?.message || 'Login failed');
@@ -59,17 +61,29 @@ const authSlice = createSlice({
             })
             .addCase(login.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
                 state.loading = false;
-                state.user = action.payload.user;
+                if (action.payload.user) {
+                    state.user = action.payload.user;
+                }
                 state.token = action.payload.token;
                 state.isAuthenticated = true;
             })
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload as string;
+                state.error = (action as any).payload as string;
             })
             // Fetch Profile
             .addCase(fetchProfile.fulfilled, (state, action) => {
-                state.user = action.payload;
+                const rawUser = action.payload as any;
+                // Map backend fields to frontend User interface
+                state.user = {
+                    id: rawUser.id || 0,
+                    email: rawUser.email || rawUser.username,
+                    nom: rawUser.lastName || '',
+                    prenom: rawUser.firstName || '',
+                    // Map ROLE_MANAGER -> MANAGER, etc.
+                    role: (rawUser.roles?.[0]?.replace('ROLE_', '') || 'CLIENT') as any,
+                    telephone: rawUser.telephone
+                };
                 state.isAuthenticated = true;
             })
             .addCase(fetchProfile.rejected, (state) => {
